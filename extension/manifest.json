@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "视频号数据导出",
+  "version": "1.0.0",
+  "description": "一键把视频号助手里所有视频的标题和播放数据导出成 Excel。数据只在你的电脑上处理，不上传。",
+  "icons": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "action": { "default_title": "打开视频号助手并导出数据", "default_icon": { "16": "icons/16.png", "48": "icons/48.png" } },
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://channels.weixin.qq.com/*"],
+      "js": ["hook.js"],
+      "world": "MAIN",
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_origin_as_fallback": true
+    },
+    {
+      "matches": ["https://channels.weixin.qq.com/*"],
+      "js": ["lib/exceljs.min.js", "report.js", "content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
